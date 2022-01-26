@@ -1,0 +1,23 @@
+{
+	"folders": [
+		{
+			"path": ".."
+		}
+	],
+	"settings": {
+		"files.associations": {
+			"map": "cpp",
+			"memory": "cpp",
+			"stl_algobase.h": "c",
+			"ble.h": "c",
+			"ble2902.h": "c",
+			"bledescriptor.h": "c",
+			"examplel.h": "c",
+			"example_gif.h": "c",
+			"gui_guider.h": "c",
+			"guider_fonts.h": "c",
+			"number_game.h": "c",
+			"lv_gif.h": "c"
+		}
+	}
+}
