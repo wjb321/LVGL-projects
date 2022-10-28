@@ -47,7 +47,7 @@ void task_cb(lv_task_t * task)
 	lv_gauge_set_value(gauge1,0,TMethodSpeed);
 	//把此速度显示在标签上,然后根据不同的数值显示出不同的颜色
 	//绿色代表安全,黄色代表警告,红色代表危险  
-	sprintf(buff,"#%s %d r/m#",TMethodSpeed<100?"00FF00":(TMethodSpeed<150?"FFFF00":"FF0000"),TMethodSpeed); 
+	sprintf(buff,"#%s %.3f r/m#",TMethodSpeed<100?"00FF00":(TMethodSpeed<150?"FFFF00":"FF0000"),TMethodSpeed); 
 	lv_label_set_text(label1,buff);
 	//设置刻度指示器的数值
 	lv_lmeter_set_value(lmeter1,TMethodSpeed);
