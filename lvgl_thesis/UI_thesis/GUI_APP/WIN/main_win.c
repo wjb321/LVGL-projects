@@ -13,7 +13,7 @@ LV_IMG_DECLARE(chart_img);
 LV_IMG_DECLARE(gauge_img);
 LV_IMG_DECLARE(progress_img);
 //申明字体
-LV_FONT_DECLARE(my_font);//此字体里面只有正点原子四个汉字
+//LV_FONT_DECLARE(my_font);//此字体里面只有正点原子四个汉字
 
 //变量定义
 #define TABLE_COL_CNT   		3   //表格的列数
@@ -116,9 +116,13 @@ void home_tab_init(lv_obj_t * parent)
 	static lv_style_t title_style;
 	lv_obj_t * title_label = lv_label_create(parent,NULL);
 	lv_style_copy(&title_style,lv_obj_get_style(title_label));//复制标签之前的主题样式
-	title_style.text.font = &my_font;//改变字体
-	lv_label_set_style(title_label,LV_LABEL_STYLE_MAIN,&title_style);//设置新的样式
-	lv_label_set_text(title_label,"\xE6\xAD\xA3\xE7\x82\xB9\xE5\x8E\x9F\xE5\xAD\x90");//这是"正点原子"的UTF-8编码
+//	title_style.text.font = &my_font;//改变字体
+//	lv_label_set_style(title_label,LV_LABEL_STYLE_MAIN,&title_style);//设置新的样式
+	//#FFFFFF ABS CONTROL PANEL#\n
+	
+	lv_label_set_recolor(title_label,true);
+	lv_obj_set_size(title_label,lv_obj_get_width(parent)*0.99f,lv_obj_get_height(parent)-30);
+	lv_label_set_text(title_label,"#ffad92 ABS CONTROL PANEL #");//这是"正点原子"的UTF-8编码   \xE6\xAD\xA3\xE7\x82\xB9\xE5\x8E\x9F\xE5\xAD\x90
 	lv_obj_align(title_label,NULL,LV_ALIGN_IN_TOP_MID,0,10);
 	
 	//创建列表
@@ -156,7 +160,7 @@ void setting_tab_init(lv_obj_t * parent)
 	//创建用户名和id
 	lv_obj_t * name_id_label = lv_label_create(parent,NULL);
 	lv_label_set_recolor(name_id_label,true);
-	lv_label_set_text(name_id_label,"#FFFFFF Xiong jia yu#\n#BBBBBB ID:15727652280#");
+	lv_label_set_text(name_id_label,"#FFFFFF JIABIN WANG#\n#BBBBBB ID:4454899#");
 	lv_obj_align(name_id_label,head_img,LV_ALIGN_OUT_RIGHT_MID,20,0);
 	//创建一根水平分割横线
 	lv_obj_t * split_line = lv_line_create(parent,NULL);

@@ -315,8 +315,8 @@ void TIM4_IRQHandler(void)   //TIM3中断
 		{    
 			  //rounds ++;
 		TMethodSpeed = TSpeed( arrValue, pscValue );
-		series1_y[updateChart++]= TMethodSpeed;
-			if(updateChart > POINT_COUNT -1 ) updateChart = 0;
+//		series1_y[updateChart++]= TMethodSpeed;
+//			if(updateChart > POINT_COUNT -1 ) updateChart = 0;
 		   
 		}
 		TIM_ClearITPendingBit(TIM4, TIM_IT_Update  );  //清除TIMx的中断待处理位:TIM 中断源 
@@ -372,7 +372,8 @@ void TIM6_IRQHandler(void)   //TIM3中断
 		{    
 			  //rounds ++;
 		 LED1=!LED1;
-		lv_chart_refresh(chart1);
+     lv_chart_set_next(chart1,series1,TMethodSpeed);
+			
 		}
 		TIM_ClearITPendingBit(TIM6, TIM_IT_Update  );  //清除TIMx的中断待处理位:TIM 中断源 
 }

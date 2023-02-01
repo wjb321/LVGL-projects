@@ -2,6 +2,7 @@
 #include "gui_app.h"
 #include <stdio.h>
 
+extern float TMethodSpeed ;
 #define POINT_COUNT   	10  //数据线所具有的数据点个数
 #define SLIDER_MAX_VAL	100	//滑块的最大值
 lv_coord_t series1_y[POINT_COUNT] = {30,60,40,60,20,60,50,80,60,80};
@@ -106,7 +107,7 @@ void chart_win_create(lv_obj_t * parent)
 	
 	//创建图表
 	chart1 = lv_chart_create(win,NULL);
-  lv_obj_set_size(chart1,180,200);//设置大小
+  lv_obj_set_size(chart1,360,400);//设置大小
   lv_obj_align(chart1,NULL,LV_ALIGN_IN_TOP_MID,17,40);//设置对齐方式
   lv_chart_set_type(chart1,LV_CHART_TYPE_POINT|LV_CHART_TYPE_LINE);//设置为散点和折线的组合
   lv_chart_set_series_opa(chart1,LV_OPA_80);//设置数据线的透明度

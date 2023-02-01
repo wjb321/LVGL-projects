@@ -29,7 +29,10 @@ int speedflag = 0;
 extern lv_coord_t series1_y[POINT_COUNT];
 int update_chart_Array = 0;
 extern int updateChart;
-
+int ConstantOrChangeSpeed = 0;
+int PWMChangeFlag = 0;
+int CeleOrDeceFlag = 0;
+int InitPWMFlag = 0;
 int main(void)
 {	 
   vu8 key=0;
@@ -43,12 +46,12 @@ int main(void)
 	FSMC_SRAM_Init();				//外部1MB的sram初始化
 	LCD_Init();							//LCD初始化			
  	tp_dev.init();					//触摸屏初始化
+	
 	TIM1_Int_Init(2999, 7199, TIM1_Enable);
 	TIM2_Int_Init(arrValue,pscValue,ENABLE); 
   TIM3_PWM_Init(1399,0);	 //不分频。PWM频率=72000000/900=80Khz
 	TIM5_Int_Init(999,71);	//定时器初始化(1ms中断),用于给lvgl提供1ms的心跳节拍
 	TIM6_Int_Init(9999,7199, ENABLE);
-	
 	TIM4_EncoderMode_Config(Pulse);
 	
 	lv_init();							//lvgl系统初始化
@@ -67,45 +70,48 @@ int main(void)
         {
           switch(key)
             {
-            case KEY2_PRES: // decelerate
-							  SpeedDecrease = 40;
-//							led0pwmval+= 20;
-//						  if(led0pwmval >=1079) led0pwmval =1079;
-//						  //else if (74 <=led0pwmval && led0pwmval<= 83) led0pwmval = 84;
-//						  printf("led0pwmval %d \r\n", led0pwmval);
+            case KEY2_PRES:  //change the current trend:celeration-> deceleration or vice versa
+							  CeleOrDeceFlag = !CeleOrDeceFlag;
               break;
 
-            case KEY1_PRES:  // decelerate
-							  SpeedDecrease = 20;
-//							led0pwmval +=40;
-//						  if(led0pwmval >=1079) led0pwmval =1079;
-//						  printf("led0pwmval %d \r\n", led0pwmval);
+            case KEY1_PRES:  // initial the speed either highest or lowest
+     						 InitPWMFlag =!InitPWMFlag;
+								if(InitPWMFlag) led0pwmval = 30;
+							  else led0pwmval = 1079;
               break;
 
-            case KEY0_PRES:  // celerate
-							TIM_Cmd(TIM1, ENABLE); 
-//							led0pwmval -=20;
-//						  if(led0pwmval <=30) led0pwmval =30;
-//						  printf("led0pwmval %d \r\n", led0pwmval);
+            case KEY0_PRES:  // deceleration or celeration rate change
+							 PWMChangeFlag =!PWMChangeFlag;
+								if(PWMChangeFlag) SpeedDecrease = 20;
+							  else SpeedDecrease = 40;
               break;
 						 
-						case WKUP_PRES:  // mid high
-							TIM_Cmd(TIM1, DISABLE); 
-//						 led0pwmval -=40;
-//						 if(led0pwmval <=30) led0pwmval =30;
-//						 printf("led0pwmval %d \r\n", led0pwmval);
+						case WKUP_PRES:  // keep current speed or keep the previous trend or or off timer
+							ConstantOrChangeSpeed = !ConstantOrChangeSpeed;
+							TIM_Cmd(TIM1, ConstantOrChangeSpeed); 
               break;
             }
         }
-				TIM_SetCompare2(TIM3,led0pwmval);
-				if(led0pwmval <= 30) led0pwmval =1079;
-     if(speedflag == 1)
-		 { 		 
-
-			 led0pwmval -=SpeedDecrease;	
-			speedflag = 0;
+		 
+     if(speedflag == 1)  // timer1 for peridically decreasing or increasing the speed
+		 { 	
+			 
+       if(led0pwmval <= 30) CeleOrDeceFlag = 0;
+			 else if(led0pwmval >= 1079) CeleOrDeceFlag = 1;
+			 switch(CeleOrDeceFlag)
+			 {
+				 case 0:
+					 led0pwmval +=SpeedDecrease;
+					 break;
+				 case 1:
+					 led0pwmval -=SpeedDecrease;
+					 break;
+				 default:
+					 break;
+			 }
+			 speedflag = 0;
 		 }
-				
+		TIM_SetCompare2(TIM3,led0pwmval);		
 	}
 }
 

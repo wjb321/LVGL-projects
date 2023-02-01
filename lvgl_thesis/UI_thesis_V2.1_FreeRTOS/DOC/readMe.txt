@@ -6,3 +6,6 @@
 28/10/22
 1. the speed info is quite fixed when the wheel rotates, most probably reason can be the wire connection problem
 ************************************************************************************************************** 
+next step:
+1. can freertos solves this problem?
+2. add tablet into lvgl, it is the system matrix

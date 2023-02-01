@@ -15,7 +15,7 @@
 /*-----------------
  *    BITMAPS
  *----------------*/
-
+//\xE6\xAD\xA3   \xB7\x82\xB9   \xE5\x8E\x9F  \xE5\xAD\x90
 /*Store the image of the glyphs*/
 static LV_ATTRIBUTE_LARGE_CONST const uint8_t gylph_bitmap[] = {
     /* U+539F "原" */
