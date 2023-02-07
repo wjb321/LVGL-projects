@@ -134,11 +134,11 @@
             <RunIndependent>0</RunIndependent>
             <UpdateFlashBeforeDebugging>1</UpdateFlashBeforeDebugging>
             <Capability>1</Capability>
-            <DriverSelection>4101</DriverSelection>
+            <DriverSelection>4100</DriverSelection>
           </Flash1>
           <bUseTDR>1</bUseTDR>
           <Flash2>Segger\JL2CM3.dll</Flash2>
-          <Flash3></Flash3>
+          <Flash3>"" ()</Flash3>
           <Flash4></Flash4>
           <pFcarmOut></pFcarmOut>
           <pFcarmGrp></pFcarmGrp>
@@ -339,7 +339,7 @@
               <MiscControls>--diag_suppress=68 --diag_suppress=111 --diag_suppress=550</MiscControls>
               <Define>STM32F10X_HD,USE_STDPERIPH_DRIVER</Define>
               <Undefine></Undefine>
-              <IncludePath>..\HARDWARE\LED;..\SYSTEM\delay;..\SYSTEM\sys;..\SYSTEM\usart;..\USER;..\STM32F10x_FWLib\inc;..\CORE;..\HARDWARE\KEY;..\HARDWARE\LCD;..\HARDWARE\RTC;..\HARDWARE\RTC;..\HARDWARE\WKUP;..\HARDWARE\ADC;..\HARDWARE\DAC;..\HARDWARE\DMA;..\HARDWARE\IIC;..\HARDWARE\24CXX;..\HARDWARE\SPI;..\HARDWARE\TOUCH;..\HARDWARE\W25QXX;..\HARDWARE\TIMER;..\HARDWARE\SRAM;..\GUI;..\GUI\lvgl;..\GUI\lv_examples;..\GUI\lvgl_driver;..\GUI_APP;..\HARDWARE\BEEP;..\GUI_APP\FONT;..\GUI_APP\IMG;..\GUI_APP\WIN;..\DOC;..\FreeRTOS\include;..\FreeRTOS\portable;..\TraceAnalyzer\config;..\TraceAnalyzer\include;..\TraceAnalyzer\Jlink_RTT\include;..\TraceAnalyzer\Jlink_RTT\config;..\FreeRTOS\portable\RVDS\ARM_CM3</IncludePath>
+              <IncludePath>..\HARDWARE\LED;..\SYSTEM\delay;..\SYSTEM\sys;..\SYSTEM\usart;..\USER;..\STM32F10x_FWLib\inc;..\CORE;..\HARDWARE\KEY;..\HARDWARE\LCD;..\HARDWARE\RTC;..\HARDWARE\RTC;..\HARDWARE\WKUP;..\HARDWARE\ADC;..\HARDWARE\DAC;..\HARDWARE\DMA;..\HARDWARE\IIC;..\HARDWARE\24CXX;..\HARDWARE\SPI;..\HARDWARE\TOUCH;..\HARDWARE\W25QXX;..\HARDWARE\TIMER;..\HARDWARE\SRAM;..\GUI;..\GUI\lvgl;..\GUI\lv_examples;..\GUI\lvgl_driver;..\GUI_APP;..\HARDWARE\BEEP;..\GUI_APP\FONT;..\GUI_APP\IMG;..\GUI_APP\WIN;..\DOC;..\FreeRTOS\include;..\FreeRTOS\portable;..\TraceAnalyzer\config;..\TraceAnalyzer\include;..\TraceAnalyzer\Jlink_RTT\include;..\TraceAnalyzer\Jlink_RTT\config;..\FreeRTOS\portable\RVDS\ARM_CM3;..\HARDWARE\CAN</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -547,6 +547,16 @@
               <FileName>stm32f10x_tim.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\STM32F10x_FWLib\src\stm32f10x_tim.c</FilePath>
+            </File>
+            <File>
+              <FileName>stm32f10x_can.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\STM32F10x_FWLib\src\stm32f10x_can.c</FilePath>
+            </File>
+            <File>
+              <FileName>stm32f10x_iwdg.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\STM32F10x_FWLib\src\stm32f10x_iwdg.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1047,6 +1057,16 @@
               <FileName>progress_win.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\GUI_APP\WIN\progress_win.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>CAN</GroupName>
+          <Files>
+            <File>
+              <FileName>can_config.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\HARDWARE\CAN\can_config.c</FilePath>
             </File>
           </Files>
         </Group>

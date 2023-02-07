@@ -23,6 +23,27 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f10x_it.h" 
+uint8_t Rx1_DATA0,Rx1_DATA1,Rx1_DATA2,Rx1_DATA3,Rx1_DATA4,Rx1_DATA5,Rx1_DATA6,Rx1_DATA7;
+int CAN_Speedflag = 0;
+uint16_t CANRx_ID;
+
+void CAN1_RX1_IRQHandler(void)
+{
+
+  CanRxMsg RxMessage1;
+  CAN_Receive(CAN1,CAN_FIFO1, &RxMessage1);  
+  CANRx_ID =RxMessage1.StdId;
+  Rx1_DATA0=RxMessage1.Data[0];
+  Rx1_DATA1=RxMessage1.Data[1]; 
+  Rx1_DATA2=RxMessage1.Data[2];
+  Rx1_DATA3=RxMessage1.Data[3]; 
+  Rx1_DATA4=RxMessage1.Data[4]; 
+
+  CAN_ClearITPendingBit(CAN1,CAN_IT_FMP1);  /* Çå³ý¹ÒÆðÖÐ¶Ï */
+  CAN_Speedflag = 2;
+ //CanRxFlag = ENABLE;
+  //printf("receive %#x\n", CANRx_ID);
+}
 
 
  

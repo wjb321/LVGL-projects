@@ -295,13 +295,13 @@ extern int pscValue;
 
 extern int SpeedDecrease;
 extern lv_obj_t * chart1;
-extern int speedflag;
+extern int CAN_Speedflag;
 void TIM1_UP_IRQHandler(void)   //TIM1中断 TIM1_BRK_IRQHandler  TIM1_UP_IRQHandler
 {
   if (TIM_GetITStatus(TIM1, TIM_IT_Update) != RESET)  //检查TIM1更新中断发生与否
     {
        LED0 = !LED0;
-			speedflag = 1;
+			CAN_Speedflag = 1;
     }
 		TIM_ClearITPendingBit(TIM1, TIM_IT_Update); 
 }
