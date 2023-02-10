@@ -16,24 +16,26 @@
 #include "lv_tests\lv_test_theme\lv_test_theme_2.h"
 #include "gui_app.h"
 #include "chart_win.h"
+#include "can_config.h"
 
 int arrValue = 199;
 int pscValue = 71;
-//extern int arrValue ;
-//extern int pscValue;
-int Pulse = 62;
-int led0pwmval=20;
-int TIM1_Enable = ENABLE;
+int Pulse         = 62;
+int led0pwmval    = 20;
+int TIM1_Enable   = ENABLE;
 int SpeedDecrease = 20;
-extern int CAN_Speedflag;
-extern lv_coord_t series1_y[POINT_COUNT];
 int update_chart_Array = 0;
-extern int updateChart;
-
 int ConstantOrChangeSpeed = 0;
 int PWMChangeFlag = 0;
 int CeleOrDeceFlag = 0;
 int InitPWMFlag = 0;
+
+
+extern int CAN_Speedflag;
+extern lv_coord_t series1_y[POINT_COUNT];
+extern uint8_t Rx1_DATA0,Rx1_DATA1,Rx1_DATA2,Rx1_DATA3,Rx1_DATA4,Rx1_DATA5,Rx1_DATA6,Rx1_DATA7;
+extern int updateChart;
+
 int main(void)
 {
   vu8 key=0;
@@ -45,6 +47,7 @@ int main(void)
   KEY_Init();	 						//按键初始化
   BEEP_Init();						//蜂鸣器初始化
   FSMC_SRAM_Init();				//外部1MB的sram初始化
+	CAN_ABSCONTROL_Configuration();
   LCD_Init();							//LCD初始化
   tp_dev.init();					//触摸屏初始化
 
@@ -85,8 +88,8 @@ int main(void)
 
             case KEY0_PRES:  // deceleration or celeration rate change
               PWMChangeFlag =!PWMChangeFlag;
-              if(PWMChangeFlag) SpeedDecrease = 2;
-              else SpeedDecrease = 4;
+              if(PWMChangeFlag) SpeedDecrease = 6;
+              else SpeedDecrease = 3;
               printf("SpeedDecrease is %d\n",SpeedDecrease);
               break;
 
@@ -105,11 +108,12 @@ int main(void)
           switch(CeleOrDeceFlag)
             {
             case 0:
-              led0pwmval +=SpeedDecrease;
-						  printf("led0pwmval is %d\n",led0pwmval);
+              led0pwmval +=SpeedDecrease; // decelation
+						  //BEEP = !BEEP;
+						  //printf("led0pwmval is %d\n",led0pwmval);
               break;
             case 1:
-              led0pwmval -=SpeedDecrease;
+              led0pwmval -=SpeedDecrease; // celelation
               break;
             default:
               break;
@@ -117,7 +121,25 @@ int main(void)
           CAN_Speedflag = 0;
           break;
         case 2:
-					printf("it is blocked\n");
+					 switch(Rx1_DATA0)
+					 {
+						 case 1:
+							 SpeedDecrease = 6;
+						   led0pwmval -= SpeedDecrease;
+							 printf("blocked\n");
+							 break;
+						 case 2:
+							 printf("celeration\n");
+							 break;
+						 case 3:
+							 printf("celeration\n");
+							 break;
+						 case 4:
+							 printf("constant\n");
+							 break;
+						 default:
+							 break;
+					 }
 					 CAN_Speedflag = 0;
           break;
         default:

@@ -9,6 +9,8 @@ static lv_obj_t * label1;
 static lv_obj_t * lmeter1;
 static int16_t speed_val = 0;
 extern float TMethodSpeed;
+extern uint8_t Rx1_DATA0,Rx1_DATA1,Rx1_DATA2,Rx1_DATA3,Rx1_DATA4,Rx1_DATA5,Rx1_DATA6,Rx1_DATA7;
+
 lv_color_t needle_colors[2];//每一个指针的颜色
 static lv_task_t * task = NULL;
 
@@ -30,6 +32,7 @@ void task_cb(lv_task_t * task)
 {
 	static uint8_t is_add_dir = 1;//是否是速度增加的方向
 	char buff[40];
+	char buff1[40];
 
 //	if(is_add_dir)
 //	{

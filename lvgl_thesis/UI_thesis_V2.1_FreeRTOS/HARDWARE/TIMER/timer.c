@@ -60,12 +60,12 @@ float TSpeed(int arr, int psc )
 	freq = (int)(1.0/(((arr+1)*(psc +1)) / (72.0* pow(10.0,6.0))));
 	Tv = 60.0* freq * Pulse/ (TOTAL_RESOLUTION * NumHighFreq *1.0);
   //	printf("freq is %d \r\n", freq);
-  	printf("NumHighFreq is %d \r\n", NumHighFreq);
+  //printf("NumHighFreq is %d \r\n", NumHighFreq);
 	
 	//series1_y[counter] = Tv;
 	//counter ++;
 	//if(counter >10) counter = 0;
-	printf("%.3f \n", Tv );
+	printf("speed:%.3f\n",Tv);
 	NumHighFreq = 0;
 	return Tv;
 	//printf("Tv is %.3f \r\n", Tv);
