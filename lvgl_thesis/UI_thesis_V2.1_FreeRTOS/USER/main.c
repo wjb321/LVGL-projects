@@ -126,7 +126,8 @@ int main(void)
 						 case 1:
 							 SpeedDecrease = 6;
 						   led0pwmval -= SpeedDecrease;
-							 printf("blocked\n");
+						   BEEP = !BEEP;
+							 //printf("blocked\n");
 							 break;
 						 case 2:
 							 printf("celeration\n");
