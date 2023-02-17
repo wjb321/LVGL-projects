@@ -9,14 +9,14 @@
 #include "timer.h"
 #include "sram.h"
 #include "lvgl.h"
-//#include "lv_port_disp.h"
-//#include "lv_port_indev.h"
+#include "lv_port_disp.h"
+#include "lv_port_indev.h"
 //#include "lv_apps\demo\demo.h"
 //#include "lv_tests\lv_test_theme\lv_test_theme_1.h"
 //#include "lv_tests\lv_test_theme\lv_test_theme_2.h"
 //#include "gui_app.h"
 //#include "chart_win.h"
-#include "lv_port_disp_template.h"
+//#include "lv_port_disp.h"
 #include "can_config.h"
 
 int arrValue = 199;
@@ -50,7 +50,9 @@ int main(void)
   FSMC_SRAM_Init();				//外部1MB的sram初始化
 	CAN_ABSCONTROL_Configuration();
   LCD_Init();							//LCD初始化
+	lv_init();							//lvgl系统初始化
   tp_dev.init();					//触摸屏初始化
+	lv_port_indev_init();		//lvgl输入接口初始化
   lv_port_disp_init();
   TIM1_Int_Init(99, 7199, TIM1_Enable);
   TIM2_Int_Init(arrValue,pscValue,ENABLE);
@@ -59,13 +61,12 @@ int main(void)
   TIM6_Int_Init(9999,7199, ENABLE);
   TIM4_EncoderMode_Config(Pulse);
 
-//  lv_init();							//lvgl系统初始化
-//  lv_port_disp_init();		//lvgl显示接口初始化
-//  lv_port_indev_init();		//lvgl输入接口初始化
 
 
 //  gui_app_start(); 	//运行例程
-
+  lv_obj_t * switch_obj = lv_switch_create(lv_scr_act());
+	lv_obj_set_size(switch_obj, 120, 60);
+	lv_obj_align(switch_obj, LV_ALIGN_CENTER, 0, 0);
   while(1)
     {
       //tp_dev.scan(0);
@@ -148,7 +149,11 @@ int main(void)
           break;
         }
       TIM_SetCompare2(TIM3,led0pwmval);
+					delay_ms(5);
+		lv_timer_handler();
     }
+		
+	
 }
 
 
