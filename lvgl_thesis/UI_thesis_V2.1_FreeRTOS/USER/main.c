@@ -63,8 +63,7 @@ int main(void)
   lv_port_indev_init();		//lvgl输入接口初始化
 
 
-  gui_app_start(); 	//运行例程
-
+  gui_app_start(); 	
   while(1)
     {
       tp_dev.scan(0);

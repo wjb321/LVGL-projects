@@ -133,7 +133,7 @@ void lv_disp_drv_init(lv_disp_drv_t * driver)
  */
 void lv_disp_draw_buf_init(lv_disp_draw_buf_t * draw_buf, void * buf1, void * buf2, uint32_t size_in_px_cnt)
 {
-    lv_memset_00(draw_buf, sizeof(lv_disp_draw_buf_t));
+      lv_memset_00(draw_buf, sizeof(lv_disp_draw_buf_t));
 
     draw_buf->buf1    = buf1;
     draw_buf->buf2    = buf2;

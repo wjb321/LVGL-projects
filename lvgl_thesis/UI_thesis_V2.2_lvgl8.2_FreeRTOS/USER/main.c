@@ -11,6 +11,8 @@
 #include "lvgl.h"
 #include "lv_port_disp.h"
 #include "lv_port_indev.h"
+#include "FreeRTOS.h"
+#include "task.h"
 //#include "lv_apps\demo\demo.h"
 //#include "lv_tests\lv_test_theme\lv_test_theme_1.h"
 //#include "lv_tests\lv_test_theme\lv_test_theme_2.h"
@@ -49,11 +51,6 @@ int main(void)
   BEEP_Init();						//蜂鸣器初始化
   FSMC_SRAM_Init();				//外部1MB的sram初始化
 	CAN_ABSCONTROL_Configuration();
-  LCD_Init();							//LCD初始化
-	lv_init();							//lvgl系统初始化
-  tp_dev.init();					//触摸屏初始化
-	lv_port_indev_init();		//lvgl输入接口初始化
-  lv_port_disp_init();
   TIM1_Int_Init(99, 7199, TIM1_Enable);
   TIM2_Int_Init(arrValue,pscValue,ENABLE);
   TIM3_PWM_Init(1399,0);	 //不分频。PWM频率=72000000/900=80Khz
@@ -61,7 +58,13 @@ int main(void)
   TIM6_Int_Init(9999,7199, ENABLE);
   TIM4_EncoderMode_Config(Pulse);
 
-
+  //LCD_Init();							//LCD初始化
+  lv_init();							//lvgl系统初始化
+ 			//触摸屏初始化
+	lv_port_disp_init();
+  lv_port_indev_init();		//lvgl输入接口初始化
+	// tp_dev.init();		
+  
 
 //  gui_app_start(); 	//运行例程
   lv_obj_t * switch_obj = lv_switch_create(lv_scr_act());
@@ -69,8 +72,8 @@ int main(void)
 	lv_obj_align(switch_obj, LV_ALIGN_CENTER, 0, 0);
   while(1)
     {
-      //tp_dev.scan(0);
-      //lv_task_handler();
+      tp_dev.scan(0);
+      lv_task_handler();
       key=KEY_Scan(0);	//得到键值
       if(key)
         {
@@ -149,10 +152,10 @@ int main(void)
           break;
         }
       TIM_SetCompare2(TIM3,led0pwmval);
-					delay_ms(5);
-		lv_timer_handler();
+		//		printf("hello the world'\r\n");
+					//delay_ms(500);
+		//lv_timer_handler();
     }
-		
 	
 }
 
