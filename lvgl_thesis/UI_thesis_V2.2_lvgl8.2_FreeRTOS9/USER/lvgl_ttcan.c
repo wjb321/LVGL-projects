@@ -56,12 +56,12 @@ void start_task(void *pvParameters)
 //	}
 
 
-//    xTaskCreate((TaskFunction_t )lv_demo_task,
-//                (const char*    )"lv_demo_task",
-//                (uint16_t       )LV_DEMO_STK_SIZE, 
-//                (void*          )NULL,
-//                (UBaseType_t    )LV_DEMO_TASK_PRIO,
-//                (TaskHandle_t*  )&LV_DEMOTask_Handler);
+    xTaskCreate((TaskFunction_t )lv_demo_task,
+                (const char*    )"lv_demo_task",
+                (uint16_t       )LV_DEMO_STK_SIZE, 
+                (void*          )NULL,
+                (UBaseType_t    )LV_DEMO_TASK_PRIO,
+                (TaskHandle_t*  )&LV_DEMOTask_Handler);
 
 
     xTaskCreate((TaskFunction_t )led_task,
@@ -78,14 +78,13 @@ void start_task(void *pvParameters)
 
 void lv_demo_task(void *pvParameters)
 {
-    pvParameters = pvParameters;
-    
-    lv_demo_stress();     
-    
+    //lv_demo_keypad_encoder();
     while(1)
     {
-        lv_timer_handler(); 
-        vTaskDelay(5);
+		    LED0 = !LED0;
+	  vTaskDelay(1000);
+//        lv_timer_handler(); 
+//        vTaskDelay(5);
     }
 }
 

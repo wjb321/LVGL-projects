@@ -189,7 +189,7 @@
             <hadIRAM2>0</hadIRAM2>
             <hadIROM2>0</hadIROM2>
             <StupSel>8</StupSel>
-            <useUlib>0</useUlib>
+            <useUlib>1</useUlib>
             <EndSel>0</EndSel>
             <uLtcg>0</uLtcg>
             <nSecure>0</nSecure>
@@ -301,7 +301,7 @@
               <OCR_RVCT9>
                 <Type>0</Type>
                 <StartAddress>0x20000000</StartAddress>
-                <Size>0x10000</Size>
+                <Size>0x20000</Size>
               </OCR_RVCT9>
               <OCR_RVCT10>
                 <Type>0</Type>
@@ -313,7 +313,7 @@
           </ArmAdsMisc>
           <Cads>
             <interw>1</interw>
-            <Optim>2</Optim>
+            <Optim>3</Optim>
             <oTime>0</oTime>
             <SplitLS>0</SplitLS>
             <OneElfS>1</OneElfS>
@@ -597,11 +597,6 @@
               <FileName>queue.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\FreeRTOS\queue.c</FilePath>
-            </File>
-            <File>
-              <FileName>stream_buffer.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\FreeRTOS\stream_buffer.c</FilePath>
             </File>
             <File>
               <FileName>tasks.c</FileName>
@@ -1461,146 +1456,6 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>TraceAnlyzer</GroupName>
-          <Files>
-            <File>
-              <FileName>SEGGER_RTT.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\TraceAnalyzer\Jlink_RTT\SEGGER_RTT.c</FilePath>
-            </File>
-            <File>
-              <FileName>trcStreamPort.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\TraceAnalyzer\Jlink_RTT\trcStreamPort.c</FilePath>
-            </File>
-            <File>
-              <FileName>trcAssert.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\TraceAnalyzer\trcAssert.c</FilePath>
-            </File>
-            <File>
-              <FileName>trcCounter.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\TraceAnalyzer\trcCounter.c</FilePath>
-            </File>
-            <File>
-              <FileName>trcDiagnostics.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\TraceAnalyzer\trcDiagnostics.c</FilePath>
-            </File>
-            <File>
-              <FileName>trcEntryTable.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\TraceAnalyzer\trcEntryTable.c</FilePath>
-            </File>
-            <File>
-              <FileName>trcError.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\TraceAnalyzer\trcError.c</FilePath>
-            </File>
-            <File>
-              <FileName>trcEvent.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\TraceAnalyzer\trcEvent.c</FilePath>
-            </File>
-            <File>
-              <FileName>trcEventBuffer.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\TraceAnalyzer\trcEventBuffer.c</FilePath>
-            </File>
-            <File>
-              <FileName>trcExtension.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\TraceAnalyzer\trcExtension.c</FilePath>
-            </File>
-            <File>
-              <FileName>trcHardwarePort.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\TraceAnalyzer\trcHardwarePort.c</FilePath>
-            </File>
-            <File>
-              <FileName>trcHeap.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\TraceAnalyzer\trcHeap.c</FilePath>
-            </File>
-            <File>
-              <FileName>trcInternalEventBuffer.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\TraceAnalyzer\trcInternalEventBuffer.c</FilePath>
-            </File>
-            <File>
-              <FileName>trcInterval.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\TraceAnalyzer\trcInterval.c</FilePath>
-            </File>
-            <File>
-              <FileName>trcISR.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\TraceAnalyzer\trcISR.c</FilePath>
-            </File>
-            <File>
-              <FileName>trcKernelPort.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\TraceAnalyzer\trcKernelPort.c</FilePath>
-            </File>
-            <File>
-              <FileName>trcMultiCoreEventBuffer.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\TraceAnalyzer\trcMultiCoreEventBuffer.c</FilePath>
-            </File>
-            <File>
-              <FileName>trcObject.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\TraceAnalyzer\trcObject.c</FilePath>
-            </File>
-            <File>
-              <FileName>trcPrint.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\TraceAnalyzer\trcPrint.c</FilePath>
-            </File>
-            <File>
-              <FileName>trcSnapshotRecorder.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\TraceAnalyzer\trcSnapshotRecorder.c</FilePath>
-            </File>
-            <File>
-              <FileName>trcStackMonitor.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\TraceAnalyzer\trcStackMonitor.c</FilePath>
-            </File>
-            <File>
-              <FileName>trcStateMachine.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\TraceAnalyzer\trcStateMachine.c</FilePath>
-            </File>
-            <File>
-              <FileName>trcStaticBuffer.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\TraceAnalyzer\trcStaticBuffer.c</FilePath>
-            </File>
-            <File>
-              <FileName>trcStreamingRecorder.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\TraceAnalyzer\trcStreamingRecorder.c</FilePath>
-            </File>
-            <File>
-              <FileName>trcString.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\TraceAnalyzer\trcString.c</FilePath>
-            </File>
-            <File>
-              <FileName>trcTask.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\TraceAnalyzer\trcTask.c</FilePath>
-            </File>
-            <File>
-              <FileName>trcTimestamp.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\TraceAnalyzer\trcTimestamp.c</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
           <GroupName>DOC</GroupName>
           <Files>
             <File>
@@ -1617,26 +1472,6 @@
               <FileName>lv_demo_keypad_encoder.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\LVGL\GUI_APP\demos\keypad_encoder\lv_demo_keypad_encoder.c</FilePath>
-            </File>
-            <File>
-              <FileName>lv_demo_stress.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\LVGL\GUI_APP\demos\stress\lv_demo_stress.c</FilePath>
-            </File>
-            <File>
-              <FileName>lv_font_montserrat_12_compr_az.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\LVGL\GUI_APP\demos\stress\assets\lv_font_montserrat_12_compr_az.c</FilePath>
-            </File>
-            <File>
-              <FileName>lv_font_montserrat_16_compr_az.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\LVGL\GUI_APP\demos\stress\assets\lv_font_montserrat_16_compr_az.c</FilePath>
-            </File>
-            <File>
-              <FileName>lv_font_montserrat_28_compr_az.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\LVGL\GUI_APP\demos\stress\assets\lv_font_montserrat_28_compr_az.c</FilePath>
             </File>
           </Files>
         </Group>
