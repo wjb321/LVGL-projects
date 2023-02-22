@@ -19,3 +19,7 @@ delay.c
 usart.c  
 
 where there are some parts for supporting **OS** or not
+the maximum heap_size for the given board(stm32f1ze):  
+```
+#define configTOTAL_HEAP_SIZE					((size_t)(40*1024))
+```
