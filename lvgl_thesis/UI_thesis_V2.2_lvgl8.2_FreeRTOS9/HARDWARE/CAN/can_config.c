@@ -1,7 +1,5 @@
 #include "can_config.h"
 #include "usart.h"
-#include "FreeRTOS.h"
-#include "task.h"
 /*Mater Node*/
 uint8_t MasterNumBC =0;
 uint64_t MasterTimeTx =0;

@@ -7,13 +7,22 @@
 #include "touch.h"
 #include "timer.h"
 #include "sram.h"
-#include "lvgl.h"
 #include "led.h"
-#include "lvgl_ttcan.h"
 #include "can_config.h"
+#include "lvgl_ttcan.h"
+#include "malloc.h"
 
-int arrValue = 199;
-int pscValue = 71;
+#if !SYSTEM_SUPPORT_OS
+#include "lvgl.h"
+#include "lv_port_disp.h"
+#include "lv_port_indev.h"
+#include "lv_demo_keypad_encoder.h"
+#endif
+
+
+
+int arrValue    = 199;
+int pscValue    = 71;
 int Pulse         = 62;
 int led0pwmval    = 20;
 int TIM1_Enable   = ENABLE;
@@ -39,18 +48,33 @@ int main(void)
   KEY_Init();	 						//按键初始化
   BEEP_Init();						//蜂鸣器初始化
   FSMC_SRAM_Init();				//外部1MB的sram初始化
+//  tp_dev.init();
+//	my_mem_init(SRAMIN);                /* 初始化内部SRAM内存池 */
+//  my_mem_init(SRAMEX);                /* 初始化外部SRAM内存池 */
 	CAN_ABSCONTROL_Configuration();
-//  TIM1_Int_Init(99, 7199, TIM1_Enable);
-//  TIM2_Int_Init(arrValue,pscValue,ENABLE);
-//  TIM3_PWM_Init(1399,0);	 //不分频。PWM频率=72000000/900=80Khz
-//  //TIM5_Int_Init(999,71);	//定时器初始化(1ms中断),用于给lvgl提供1ms的心跳节拍
-//  TIM6_Int_Init(9999,7199, ENABLE);
-//  TIM4_EncoderMode_Config(Pulse);
-
-	 lvgl_ttcan();
+	TIM1_Int_Init(99, 7199, TIM1_Enable);
+  TIM2_Int_Init(arrValue,pscValue,ENABLE);
+  TIM3_PWM_Init(1399,0);	 //不分频。PWM频率=72000000/900=80Khz
+	TIM4_EncoderMode_Config(Pulse);
+	 //TIM6_Int_Init(9999,7199, ENABLE);
 	
- }
-	// tp_dev.init();		
+#if !SYSTEM_SUPPORT_OS
+	TIM5_Int_Init(999,71);	//定时器初始化(1ms中断),用于给lvgl提供1ms的心跳节拍
+  lv_init();					
+  lv_port_disp_init();
+  lv_port_indev_init();	
+	lv_demo_keypad_encoder();
+	
+    while(1)
+    { 
+      lv_timer_handler(); 
+			delay_ms(5);
+		}
+#else
+  lvgl_ttcan();
+#endif
+}
+// tp_dev.init();		
 //      xTaskCreate((TaskFunction_t )start_task,            //任务函数
 //                (const char*    )"start_task",          //任务名称
 //                (uint16_t       )START_STK_SIZE,        //任务堆栈大小

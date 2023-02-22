@@ -53,8 +53,8 @@
           <CreateExecutable>1</CreateExecutable>
           <CreateLib>0</CreateLib>
           <CreateHexFile>1</CreateHexFile>
-          <DebugInformation>0</DebugInformation>
-          <BrowseInformation>1</BrowseInformation>
+          <DebugInformation>1</DebugInformation>
+          <BrowseInformation>0</BrowseInformation>
           <ListingPath>.\</ListingPath>
           <HexFormatSelection>1</HexFormatSelection>
           <Merge32K>0</Merge32K>
@@ -189,7 +189,7 @@
             <hadIRAM2>0</hadIRAM2>
             <hadIROM2>0</hadIROM2>
             <StupSel>8</StupSel>
-            <useUlib>1</useUlib>
+            <useUlib>0</useUlib>
             <EndSel>0</EndSel>
             <uLtcg>0</uLtcg>
             <nSecure>0</nSecure>
@@ -339,7 +339,7 @@
               <MiscControls>--diag_suppress=68 --diag_suppress=111 --diag_suppress=550</MiscControls>
               <Define>STM32F10X_HD,USE_STDPERIPH_DRIVER</Define>
               <Undefine></Undefine>
-              <IncludePath>..\HARDWARE\LED;..\SYSTEM\delay;..\SYSTEM\sys;..\SYSTEM\usart;..\USER;..\STM32F10x_FWLib\inc;..\CORE;..\HARDWARE\KEY;..\HARDWARE\LCD;..\HARDWARE\RTC;..\HARDWARE\RTC;..\HARDWARE\WKUP;..\HARDWARE\ADC;..\HARDWARE\DAC;..\HARDWARE\DMA;..\HARDWARE\IIC;..\HARDWARE\24CXX;..\HARDWARE\SPI;..\HARDWARE\TOUCH;..\HARDWARE\W25QXX;..\HARDWARE\TIMER;..\HARDWARE\SRAM;..\GUI;..\GUI\lvgl;..\HARDWARE\BEEP;..\DOC;..\FreeRTOS\include;..\TraceAnalyzer\config;..\TraceAnalyzer\include;..\TraceAnalyzer\Jlink_RTT\include;..\TraceAnalyzer\Jlink_RTT\config;..\FreeRTOS\portable\RVDS\ARM_CM3;..\HARDWARE\CAN;..\LVGL\GUI\lvgl\examples\porting;..\LVGL\GUI\lvgl\src;..\LVGL\GUI;..\LVGL\GUI_APP\demos\keypad_encoder;..\LVGL\GUI_APP\demos;..\LVGL\GUI_APP\demos\stress</IncludePath>
+              <IncludePath>..\HARDWARE\LED;..\SYSTEM\delay;..\SYSTEM\sys;..\SYSTEM\usart;..\USER;..\STM32F10x_FWLib\inc;..\CORE;..\HARDWARE\KEY;..\HARDWARE\LCD;..\HARDWARE\RTC;..\HARDWARE\RTC;..\HARDWARE\WKUP;..\HARDWARE\ADC;..\HARDWARE\DAC;..\HARDWARE\DMA;..\HARDWARE\IIC;..\HARDWARE\24CXX;..\HARDWARE\SPI;..\HARDWARE\TOUCH;..\HARDWARE\W25QXX;..\HARDWARE\TIMER;..\HARDWARE\SRAM;..\GUI;..\GUI\lvgl;..\HARDWARE\BEEP;..\DOC;..\FreeRTOS\include;..\TraceAnalyzer\config;..\TraceAnalyzer\include;..\TraceAnalyzer\Jlink_RTT\include;..\TraceAnalyzer\Jlink_RTT\config;..\FreeRTOS\portable\RVDS\ARM_CM3;..\HARDWARE\CAN;..\LVGL\GUI\lvgl\examples\porting;..\LVGL\GUI\lvgl\src;..\LVGL\GUI;..\LVGL\GUI_APP\demos\keypad_encoder;..\LVGL\GUI_APP\demos;..\LVGL\GUI_APP\demos\stress;..\MALLOC</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -1472,6 +1472,36 @@
               <FileName>lv_demo_keypad_encoder.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\LVGL\GUI_APP\demos\keypad_encoder\lv_demo_keypad_encoder.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_demo_stress.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\LVGL\GUI_APP\demos\stress\lv_demo_stress.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_font_montserrat_12_compr_az.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\LVGL\GUI_APP\demos\stress\assets\lv_font_montserrat_12_compr_az.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_font_montserrat_16_compr_az.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\LVGL\GUI_APP\demos\stress\assets\lv_font_montserrat_16_compr_az.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_font_montserrat_28_compr_az.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\LVGL\GUI_APP\demos\stress\assets\lv_font_montserrat_28_compr_az.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>MALLOC</GroupName>
+          <Files>
+            <File>
+              <FileName>malloc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\MALLOC\malloc.c</FilePath>
             </File>
           </Files>
         </Group>

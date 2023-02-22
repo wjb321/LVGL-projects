@@ -1,13 +1,18 @@
 #include "lvgl_ttcan.h"
 #include "lvgl.h"
-#include "timer.h"
-#include "led.h"
 #include "lv_port_disp.h"
 #include "lv_port_indev.h"
-#include "lv_demo_stress.h"
+//#include "lv_demo_stress.h"
+
+#include "timer.h"
+#include "led.h"
+
+#if SYSTEM_SUPPORT_OS 
 #include "FreeRTOS.h"
 #include "task.h"
+
 #include "delay.h"
+#include "lv_demo_keypad_encoder.h"
 
 #define START_TASK_PRIO     1           
 #define START_STK_SIZE      128        
@@ -16,7 +21,7 @@ void start_task(void *pvParameters);
 
 
 #define LV_DEMO_TASK_PRIO   3         
-#define LV_DEMO_STK_SIZE    128       
+#define LV_DEMO_STK_SIZE   1024       
 TaskHandle_t LV_DEMOTask_Handler;      
 void lv_demo_task(void *pvParameters); 
 
@@ -29,32 +34,25 @@ void led_task(void *pvParameters);
 
 void lvgl_ttcan(void)
 {
-//    lv_init();                                          /* lvglç³»ç»Ÿåˆå§‹åŒ– */
-//    lv_port_disp_init();                                /* lvglæ˜¾ç¤ºæ¥å£åˆå§‹åŒ–,æ”¾åœ¨lv_init()çš„åé¢ */
-//    lv_port_indev_init();                               /* lvglè¾“å…¥æ¥å£åˆå§‹åŒ–,æ”¾åœ¨lv_init()çš„åé¢ */
 
-    xTaskCreate((TaskFunction_t )start_task,            /* ä»»åŠ¡å‡½æ•° */
-                (const char*    )"start_task",          /* ä»»åŠ¡åç§° */
-                (uint16_t       )START_STK_SIZE,        /* ä»»åŠ¡å †æ ˆå¤§å° */
-                (void*          )NULL,                  /* ä¼ é€’ç»™ä»»åŠ¡å‡½æ•°çš„å‚æ•° */
-                (UBaseType_t    )START_TASK_PRIO,       /* ä»»åŠ¡ä¼˜å…ˆçº§ */
-                (TaskHandle_t*  )&StartTask_Handler);   /* ä»»åŠ¡å¥æŸ„ */
+  lv_init();					
+  lv_port_disp_init();
+  lv_port_indev_init();	
+	
+  xTaskCreate((TaskFunction_t )start_task,            /* ÈÎÎñº¯Êı */
+                (const char*    )"start_task",          /* ÈÎÎñÃû³Æ */
+                (uint16_t       )START_STK_SIZE,        /* ÈÎÎñ¶ÑÕ»´óĞ¡ */
+                (void*          )NULL,                  /* ´«µİ¸øÈÎÎñº¯ÊıµÄ²ÎÊı */
+                (UBaseType_t    )START_TASK_PRIO,       /* ÈÎÎñÓÅÏÈ¼¶ */
+                (TaskHandle_t*  )&StartTask_Handler);   /* ÈÎÎñ¾ä±ú */
 
-    vTaskStartScheduler();                              /* å¼€å¯ä»»åŠ¡è°ƒåº¦ */
+
+    vTaskStartScheduler();                           
 }
 
-
 void start_task(void *pvParameters)
-{
-    
-    taskENTER_CRITICAL();          
-    
-//	 while(1)
-//	{
-//	LED1 = !LED1;
-//	 delay_ms(1000);
-//	}
-
+{ 
+   taskENTER_CRITICAL();          
 
     xTaskCreate((TaskFunction_t )lv_demo_task,
                 (const char*    )"lv_demo_task",
@@ -77,14 +75,14 @@ void start_task(void *pvParameters)
 
 
 void lv_demo_task(void *pvParameters)
-{
-    //lv_demo_keypad_encoder();
+{  
+    //lv_demo_stress(); 
+    lv_demo_keypad_encoder();
     while(1)
-    {
-          LED0 = !LED0;
-	  vTaskDelay(1000);
-//        lv_timer_handler(); 
-//        vTaskDelay(5);
+			{  
+        lv_timer_handler(); 
+        vTaskDelay(5);
+
     }
 }
 
@@ -93,8 +91,10 @@ void led_task(void *pvParameters)
 {
     while(1)
     {  
-	printf("now comes to free rtos tasks \r\n");
-	LED1 = !LED1;
+			  LED1 = !LED1;
         vTaskDelay(1000);
     }
 }
+
+#endif
+

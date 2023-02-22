@@ -2,11 +2,20 @@
 #define __SYS_H	
 #include "stm32f10x.h"
 	 
+/**************************************************************************
+*@1: support, then stop the lv_tick_inc(1);from timer 5(or other timers),and
+     give the clock to lv from @ref #define LV_TICK_CUSTOM_INCLUDE "FreeRTOS.h" 
+*@0: does not support OS so, should run another part		 
+**************************************************************************/
 
-//0,不支持ucos
-//1,支持ucos
-#define SYSTEM_SUPPORT_OS		1		//定义系统文件夹是否支持UCOS
-																	    
+#define SYSTEM_SUPPORT_OS		1		//make sure the system support OS or not
+#if SYSTEM_SUPPORT_OS 
+     #define LV_TICK_CUSTOM 1
+#else 
+     #define LV_TICK_CUSTOM 0
+#endif																	    
+	 
+	 
 	 
 //位带操作,实现51类似的GPIO控制功能
 //具体实现思想,参考<<CM3权威指南>>第五章(87页~92页).

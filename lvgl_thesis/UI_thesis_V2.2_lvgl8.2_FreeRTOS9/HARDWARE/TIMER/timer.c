@@ -306,7 +306,7 @@ void TIM1_UP_IRQHandler(void)   //TIM1中断 TIM1_BRK_IRQHandler  TIM1_UP_IRQHandl
 {
   if (TIM_GetITStatus(TIM1, TIM_IT_Update) != RESET)  //检查TIM1更新中断发生与否
     {
-       LED0 = !LED0;
+       //LED0 = !LED0;
 			CAN_Speedflag = 1;
     }
 		TIM_ClearITPendingBit(TIM1, TIM_IT_Update); 
@@ -362,8 +362,11 @@ void TIM5_Int_Init(u16 arr,u16 psc)
 void TIM5_IRQHandler(void)
 { 		    		  			    
 	if(TIM5->SR&TIM_IT_Update)//溢出中断
-	{
-		//lv_tick_inc(1);//lvgl的1ms心跳
+	{ 
+		//if it does not support OS then call this function
+		#if !SYSTEM_SUPPORT_OS
+		lv_tick_inc(1);//lvgl的1ms心跳
+		#endif
 	}				   
 	TIM5->SR = (uint16_t)~TIM_IT_Update;
 }
