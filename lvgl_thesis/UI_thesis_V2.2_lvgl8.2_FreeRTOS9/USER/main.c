@@ -1,6 +1,4 @@
 #include "delay.h"
-#include "key.h"
-#include "beep.h"
 #include "sys.h"
 #include "lcd.h"
 #include "usart.h"
@@ -11,6 +9,7 @@
 #include "can_config.h"
 #include "lvgl_ttcan.h"
 #include "malloc.h"
+#include "beep.h"
 
 #if !SYSTEM_SUPPORT_OS
 #include "lvgl.h"
@@ -20,24 +19,14 @@
 #endif
 
 
-
-int arrValue    = 199;
-int pscValue    = 71;
+static int arrValue    = 199;
+static int pscValue    = 71;
 int Pulse         = 62;
-int led0pwmval    = 20;
 int TIM1_Enable   = ENABLE;
-int SpeedDecrease = 20;
-int update_chart_Array = 0;
-int ConstantOrChangeSpeed = 0;
-int PWMChangeFlag = 0;
-int CeleOrDeceFlag = 0;
-int InitPWMFlag = 0;
 
 
-extern int CAN_Speedflag;
 //extern lv_coord_t series1_y[POINT_COUNT];
-extern uint8_t Rx1_DATA0,Rx1_DATA1,Rx1_DATA2,Rx1_DATA3,Rx1_DATA4,Rx1_DATA5,Rx1_DATA6,Rx1_DATA7;
-extern int updateChart;
+
 
 int main(void)
 {
@@ -45,7 +34,6 @@ int main(void)
   NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2);//设置中断优先级分组为组2：2位抢占优先级，2位响应优先级
   uart_init(115200);	 		//串口初始化为115200
   LED_Init();			     		//LED端口初始化
-  KEY_Init();	 						//按键初始化
   BEEP_Init();						//蜂鸣器初始化
   FSMC_SRAM_Init();				//外部1MB的sram初始化
 //  tp_dev.init();

@@ -15,13 +15,7 @@
 #define TOTAL_RESOLUTION ( ENCODER_RESOLUTION*ENCODER_MULTIPLE*MOTOR_REDUCTION_RATIO ) 
 #define CNT_INIT 0
 
-
-
-
-
 extern int Pulse;
-
-
 /*updating the chart*/
 
 //vu32 NumHighFreq ;
@@ -58,13 +52,13 @@ float Mspeed(int arr, int psc)  //psc here is 7199, so it is fine
 
 //#define POINT_COUNT   	10  //数据线所具有的数据点个数
 //extern lv_coord_t series1_y[POINT_COUNT] ;
-float TSpeed(int arr, int psc )
+float TSpeed(int arr, int psc, int tempHighFreq )
 { 
 	//static int counter = 0;
 	float Tv = 0;
 	int freq = 0;
 	freq = (int)(1.0/(((arr+1)*(psc +1)) / (72.0* pow(10.0,6.0))));
-	Tv = 60.0* freq * Pulse/ (TOTAL_RESOLUTION * NumHighFreq *1.0);
+	Tv = 60.0* freq * Pulse/ (TOTAL_RESOLUTION * tempHighFreq *1.0);
   //	printf("freq is %d \r\n", freq);
   //printf("NumHighFreq is %d \r\n", NumHighFreq);
 	
@@ -160,16 +154,6 @@ void TIM6_Int_Init(u16 arr,u16 psc, u8 timer_enable_flag)
   TIM_Cmd(TIM6, timer_enable_flag );  //使能TIMx
 }
 
-
-void TIM2_IRQHandler(void)   //TIM3中断
-{
-  if (TIM_GetITStatus(TIM2, TIM_IT_Update) != RESET)  //检查TIM3更新中断发生与否
-    {
-      TIM_ClearITPendingBit(TIM2, TIM_IT_Update);  //清除TIMx更新中断标志
-  			NumHighFreq ++; //Tmethod use this vlaue
-			 //Mspeed(arrValue, pscValue);
-    }
-}
 
 void TIM3_Int_Init(u16 arr,u16 psc)
 {
@@ -313,14 +297,29 @@ void TIM1_UP_IRQHandler(void)   //TIM1中断 TIM1_BRK_IRQHandler  TIM1_UP_IRQHandl
 }
 
 
+void TIM2_IRQHandler(void)   //TIM3中断
+{
+  if (TIM_GetITStatus(TIM2, TIM_IT_Update) != RESET)  //检查TIM3更新中断发生与否
+    {
+      TIM_ClearITPendingBit(TIM2, TIM_IT_Update);  //清除TIMx更新中断标志
+  			NumHighFreq ++; //Tmethod use this vlaue
+			 //Mspeed(arrValue, pscValue);
+    }
+}
+
+
 float TMethodSpeed = 0;
 int updateChart = 0;
+int TmethodFlag = 0;
+int Tem_NumHigh2Freq = 0;
 void TIM4_IRQHandler(void)   //TIM3中断
 {
 	if (TIM_GetITStatus(TIM4, TIM_IT_Update) != RESET) //检查指定的TIM中断发生与否:TIM 中断源 
 		{    
 			  //rounds ++;
-		TMethodSpeed = TSpeed( arrValue, pscValue );
+		  Tem_NumHigh2Freq = NumHighFreq;
+			NumHighFreq =0;
+			CAN_Speedflag = 3; 
 //		series1_y[updateChart++]= TMethodSpeed;
 //			if(updateChart > POINT_COUNT -1 ) updateChart = 0;
 		   
