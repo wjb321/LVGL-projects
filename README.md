@@ -28,5 +28,15 @@ configure the system to support external sram, this series is stm32f1, so it doe
 ```
 #define LV_MEM_ADR      Bank1_SRAM3_ADDR(sram.c)
 ```
-for the introduction [ltdc+dma2d](https://www.jianshu.com/p/216388df4d4d), 
+for the introduction [ltdc+dma2d](https://www.jianshu.com/p/216388df4d4d), [ltdc+dma2d(GPU)](https://www.eet-china.com/mp/a60976.html),[difference beteween mcu lcd and rgb lcd](https://mcu.eetrend.com/blog/2020/100048344.html)
+there are 2 ways of using sram:  
+>1. put the memory at external sram that lvgl manages (not recommanded) in lv_conf.h only
+
+```
+    #define LV_MEM_SIZE (200U * 1024U)   **can be reduced to 100U or increased d to 300U, casue it uses external SRAM**
+    #define LV_MEM_ADR  0x68000000  //0  /*0: unused*/
+```
+
+>2. the buffer for drawing the pic is put in external SRAM (internal memory is not enough)
+
 
