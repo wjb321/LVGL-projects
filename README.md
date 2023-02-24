@@ -52,4 +52,8 @@ lv_disp_draw_buf_init(&draw_buf_dsc_1, buf_1, NULL, MY_DISP_HOR_RES * MY_DISP_VE
 > #define LV_LOG_PRINTF 1 serial print... 
 > also some assert funcs below
 
+**simulator blockcodes**
+>built project compiler check:compiler:management->project->right clik->build option-> select a compiler(GNU)
+
+>settings->complier->selected compiler(GNU)->toolchain executables(MinGW)(this should contain the needed files for compiling)
 
