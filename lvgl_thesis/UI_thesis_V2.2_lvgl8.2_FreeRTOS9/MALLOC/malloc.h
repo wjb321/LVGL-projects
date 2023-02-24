@@ -89,6 +89,11 @@ void myfree(uint8_t memx, void *ptr);               /* 内存释放(外部调用) */
 void *mymalloc(uint8_t memx, uint32_t size);        /* 内存分配(外部调用) */
 void *myrealloc(uint8_t memx, void *ptr, uint32_t size);    /* 重新分配内存(外部调用) */
 
+
+/*configure the malloc for lvgl below*/
+void *lv_mymalloc(uint32_t size);
+void lv_myfree(void *ptr);
+void *lv_myrealloc( void *ptr,  uint32_t size);
 #endif
 
 

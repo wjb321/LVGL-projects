@@ -52,7 +52,10 @@
     #define LV_MEM_SIZE (100U * 1024U)          /*[bytes]*/
 
     /*Set an address for the memory pool instead of allocating it as a normal array. Can be in external SRAM too.*/
-    #define LV_MEM_ADR 0x68000000     /*0: unused*/
+		/*it is enough to only have the head address, for some stm32f4 series, it needs the offset address, casuer it has ltdc file(supports Lcd-Tft Display Controller£¨LTDC£©)
+		here is the reference https://www.jianshu.com/p/216388df4d4d*/
+		
+    #define LV_MEM_ADR   0x68000000  //0x68000000  /*0: unused*/
     /*Instead of an address give a memory allocator that will be called to get a memory pool for LVGL. E.g. my_malloc*/
     #if LV_MEM_ADR == 0
         //#define LV_MEM_POOL_INCLUDE your_alloc_library  /* Uncomment if using an external allocator*/
@@ -60,10 +63,10 @@
     #endif
 
 #else       /*LV_MEM_CUSTOM*/
-    #define LV_MEM_CUSTOM_INCLUDE <stdlib.h>   /*Header for the dynamic memory function*/
-    #define LV_MEM_CUSTOM_ALLOC   malloc
-    #define LV_MEM_CUSTOM_FREE    free
-    #define LV_MEM_CUSTOM_REALLOC realloc
+    #define LV_MEM_CUSTOM_INCLUDE "malloc.h"   /*Header for the dynamic memory function*/
+    #define LV_MEM_CUSTOM_ALLOC   lv_mymalloc
+    #define LV_MEM_CUSTOM_FREE    lv_myfree
+    #define LV_MEM_CUSTOM_REALLOC lv_myrealloc
 #endif     /*LV_MEM_CUSTOM*/
 
 /*Number of the intermediate memory buffer used during rendering and other internal processing mechanisms.

@@ -269,12 +269,40 @@ void *myrealloc(uint8_t memx, void *ptr, uint32_t size)
     }
 }
 
+/**********************
+memory management for lvgl
+**********************/
+/**
+ * @brief       分配内存(外部调用)
+ * @param       size : 要分配的内存大小(字节)
+ * @retval      分配到的内存首地址.
+ */
+void *lv_mymalloc(uint32_t size)
+{
+  return  (void*) mymalloc(SRAMIN, size);
+}
 
+/**
+ * @brief       释放内存(外部调用)
+ * @param       ptr  : 内存首地址
+ * @retval      无
+ */
+void lv_myfree(void *ptr)
+{
+	myfree(SRAMIN, ptr);
+}
 
-
-
-
-
+/**
+ * @brief       重新分配内存(外部调用)
+ * @param       memx : 所属内存块
+ * @param       *ptr : 旧内存首地址
+ * @param       size : 要分配的内存大小(字节)
+ * @retval      新分配到的内存首地址.
+ */
+void *lv_myrealloc( void *ptr,  uint32_t size)
+{
+	return (void*)myrealloc(SRAMIN, ptr, size );
+}
 
 
 

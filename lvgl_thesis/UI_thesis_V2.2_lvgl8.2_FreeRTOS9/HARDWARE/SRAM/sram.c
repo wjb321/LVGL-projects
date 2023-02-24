@@ -4,7 +4,9 @@
 //使用NOR/SRAM的 BANK 4,地址位HADDR[27,26]=10
 //对IS61LV25616/IS62WV25616,地址线范围为A0~A17
 //对IS61LV51216/IS62WV51216,地址线范围为A0~A18
-#define Bank1_SRAM3_ADDR    ((u32)(0x60000000 | 0x08000000))
+
+/*this movoes to sram.h*/
+//#define Bank1_SRAM3_ADDR    ((u32)(0x60000000 | 0x08000000))
 
 //初始化外部SRAM
 void FSMC_SRAM_Init(void)
