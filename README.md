@@ -37,6 +37,14 @@ there are 2 ways of using sram:
     #define LV_MEM_ADR  0x68000000  //0  /*0: unused*/
 ```
 
->2. the buffer for drawing the pic is put in external SRAM (internal memory is not enough)
+>2. the buffer for drawing the pic is put in external SRAM (internal memory is not enough)(**does not work**)
+```
+#define LV_MEM_ADR  0  /*0: unused*/
+static lv_color_t buf_1[MY_DISP_HOR_RES * MY_DISP_VER_RES] __attribute__((at(0x68000000))); //0x68000000 start add of sram
+lv_disp_draw_buf_init(&draw_buf_dsc_1, buf_1, NULL, MY_DISP_HOR_RES * MY_DISP_VER_RES); 
+```
+[bilibili reference:external sram](https://www.bilibili.com/video/BV1CG4y157Px/?p=12&spm_id_from=pageDriver&vd_source=bfafe33e0d30866f120602a52781ae5e) 
+
+**malloc for memory management is not done yet**
 
 
