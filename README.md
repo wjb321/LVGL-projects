@@ -43,8 +43,13 @@ there are 2 ways of using sram:
 static lv_color_t buf_1[MY_DISP_HOR_RES * MY_DISP_VER_RES] __attribute__((at(0x68000000))); //0x68000000 start add of sram
 lv_disp_draw_buf_init(&draw_buf_dsc_1, buf_1, NULL, MY_DISP_HOR_RES * MY_DISP_VER_RES); 
 ```
-[bilibili reference:external sram](https://www.bilibili.com/video/BV1CG4y157Px/?p=12&spm_id_from=pageDriver&vd_source=bfafe33e0d30866f120602a52781ae5e) 
+[reference:external sram](https://www.bilibili.com/video/BV1CG4y157Px/?p=12&spm_id_from=pageDriver&vd_source=bfafe33e0d30866f120602a52781ae5e) 
 
 **malloc for memory management is not done yet**
+>here use #define LV_MEM_CUSTOM 0, then the memory management is done by lvgl built-in alloc()
+
+> #define LV_USE_LOG 1 log event for debugging
+> #define LV_LOG_PRINTF 1 serial print... 
+> also some assert funcs below
 
 
