@@ -656,6 +656,16 @@
               <FileType>1</FileType>
               <FilePath>..\LVGL\GUI_APP\demos\stress\assets\lv_font_montserrat_28_compr_az.c</FilePath>
             </File>
+            <File>
+              <FileName>lvgl_test.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\LVGL\GUI_APP\demos\lvgl_test.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_mainstart.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\LVGL\GUI_APP\demos\label_test\lv_mainstart.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
