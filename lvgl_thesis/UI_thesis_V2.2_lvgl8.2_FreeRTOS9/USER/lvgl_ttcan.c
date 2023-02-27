@@ -8,7 +8,7 @@
 #include "led.h"
 #include "key.h"
 #include "lvgl_test.h"
-
+#include "lv_mainstart.h"
 
 #if SYSTEM_SUPPORT_OS
 #include "FreeRTOS.h"
@@ -79,7 +79,8 @@ void start_task(void *pvParameters)
 
 void lv_demo_task(void *pvParameters)
 { 
-	my_event_test3();
+	//my_event_test3();
+	lv_label_test();
   //lv_demo_stress();
   //lv_demo_keypad_encoder();
   while(1)

@@ -1,23 +1,3 @@
-/**
- ****************************************************************************************************
- * @file        lv_mainstart.c
- * @author      正点原子团队(ALIENTEK)
- * @version     V1.0
- * @date        2022-03-23
- * @brief       LVGL lv_label(标签) 实验
- * @license     Copyright (c) 2020-2032, 广州市星翼电子科技有限公司
- ****************************************************************************************************
- * @attention
- *
- * 实验平台:正点原子 STM32F103开发板
- * 在线视频:www.yuanzige.com
- * 技术论坛:www.openedv.com
- * 公司网址:www.alientek.com
- * 购买地址:openedv.taobao.com
- *
- ****************************************************************************************************
- */
- 
 #include "lv_mainstart.h"
 #include "lvgl.h"
 #include <stdio.h>
@@ -59,7 +39,7 @@ static void lv_example_label_1(void)
 }
 
 /**
- * @brief  例2
+ * @brief  背景滚动方式
  * @param  无
  * @return 无
  */
@@ -70,7 +50,18 @@ static void lv_example_label_2(void)
     lv_obj_set_style_text_font(label, font, LV_PART_MAIN);                          /* 设置标签文本字体 */
     lv_obj_set_width(label, scr_act_width() / 3);                                   /* 设置标签宽度 */
     lv_label_set_long_mode(label, LV_LABEL_LONG_SCROLL_CIRCULAR);                   /* 设置标签长模式：循环滚动 */
-    lv_obj_align(label, LV_ALIGN_CENTER, 0, 0);                                     /* 设置标签位置 */
+    lv_obj_align(label, LV_ALIGN_CENTER, 0, 0);     
+
+ 	/* 设置标签位置 */
+	  lv_obj_t* label_shadow = lv_label_create(lv_scr_act());                         /* 定义并创建阴影标签 */
+    lv_label_set_text(label_shadow, lv_label_get_text(label));                      /* 设置标签文本 */
+    lv_obj_set_style_text_font(label_shadow, font, LV_PART_MAIN);                   /* 设置标签文本字体 */
+    lv_obj_set_width(label_shadow, scr_act_width() / 3);                            /* 设置标签宽度 */
+    lv_obj_set_style_text_opa(label_shadow, LV_OPA_30, LV_PART_MAIN);               /* 设置标签文本透明度 */
+    lv_obj_set_style_text_color(label_shadow, lv_color_black(), LV_PART_MAIN);      /* 设置标签文本颜色 */
+    lv_obj_set_style_text_align(label_shadow, LV_TEXT_ALIGN_CENTER, LV_PART_MAIN);  /* 设置标签文本对齐方式 */
+    lv_label_set_long_mode(label_shadow, LV_LABEL_LONG_SCROLL_CIRCULAR);
+    lv_obj_align_to(label_shadow, label, LV_ALIGN_TOP_LEFT, 3, 3);                  /* 设置标签位置 */
 }
 
 /**
@@ -102,7 +93,7 @@ static void lv_example_label_3(void)
  * @param  无
  * @return 无
  */
-void lv_mainstart(void)
+void lv_label_test(void)
 {
     lv_example_label_1();
     lv_example_label_2();
