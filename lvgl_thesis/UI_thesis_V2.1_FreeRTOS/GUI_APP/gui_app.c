@@ -16,9 +16,9 @@ void gui_app_start()
 	lv_theme_set_current(theme);
 	
 	//2.打开登录窗体
-	//login_win_create(lv_scr_act());
+	login_win_create(lv_scr_act());
 	main_win_create(lv_scr_act());//跳转到主界面
-	//chart_win_create(lv_scr_act());
+	chart_win_create(lv_scr_act());
 }
 
 

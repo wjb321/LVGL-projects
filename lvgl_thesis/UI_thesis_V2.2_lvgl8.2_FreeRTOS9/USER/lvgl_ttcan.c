@@ -79,6 +79,14 @@ void start_task(void *pvParameters)
 
 void lv_demo_task(void *pvParameters)
 { 
+//	 lv_theme_t* theme;
+//   lv_disp_t *lv_disp;
+//   lv_disp = lv_disp_get_default();
+//   lv_disp_set_bg_color(lv_disp, lv_color_white());
+//   theme = lv_theme_mono_init(lv_disp, false, LV_FONT_DEFAULT);
+//   lv_disp_set_theme(lv_disp, theme);
+//	lv_theme_t * theme = lv_theme_mono_init(210,NULL);
+//	lv_theme_set_current(theme);
 	//my_event_test3();
 	lv_label_test();
   //lv_demo_stress();
@@ -94,7 +102,9 @@ void lv_demo_task(void *pvParameters)
 extern int Tem_NumHigh2Freq;
 static int arrValue    = 199;
 static int pscValue    = 71;
-
+uint16_t minPWMforSpeed = 30; // high speed
+uint16_t maxPWMforSpeed = 500; // low speed
+extern int CAN_Speedflag;
 void led_task(void *pvParameters)
 { 
 	int SpeedDecrease = 20;
@@ -104,12 +114,18 @@ void led_task(void *pvParameters)
   int CeleOrDeceFlag = 0;
   int InitPWMFlag = 0;
   int led0pwmval    = 20;
-	extern int CAN_Speedflag;
+	static float tv = 0;
 	extern uint8_t Rx1_DATA0,Rx1_DATA1,Rx1_DATA2,Rx1_DATA3,Rx1_DATA4,Rx1_DATA5,Rx1_DATA6,Rx1_DATA7;
   extern int updateChart;
   vu8 key=0;
+	
+	TickType_t  PreviousWakeTime;
+  const TickType_t TimeIncrement = pdMS_TO_TICKS(1); //threshold
+  PreviousWakeTime = xTaskGetTickCount();
+	
   while(1)
     {
+			vTaskDelayUntil(&PreviousWakeTime, TimeIncrement); // this gurantee the system has a fixed time
       key=KEY_Scan(0);
       if(key)
         {
@@ -122,8 +138,8 @@ void led_task(void *pvParameters)
 
             case KEY1_PRES:  // initial the speed either highest or lowest
               InitPWMFlag =!InitPWMFlag;
-              if(InitPWMFlag) led0pwmval = 30;
-              else led0pwmval = 1079;
+              if(InitPWMFlag) led0pwmval = minPWMforSpeed;
+              else led0pwmval = maxPWMforSpeed;
               printf("led0pwmval is %d\n",led0pwmval);
               break;
 
@@ -143,9 +159,9 @@ void led_task(void *pvParameters)
         }
       switch(CAN_Speedflag)
         {
-        case 1:
-          if(led0pwmval <= 30) CeleOrDeceFlag = 0;
-          else if(led0pwmval >= 1079) CeleOrDeceFlag = 1;
+        case 1: // for timer 1
+          if(led0pwmval <= minPWMforSpeed) CeleOrDeceFlag = 0;
+          else if(led0pwmval >= maxPWMforSpeed) CeleOrDeceFlag = 1;
           switch(CeleOrDeceFlag)
             {
             case 0:
@@ -161,31 +177,35 @@ void led_task(void *pvParameters)
             }
           CAN_Speedflag = 0;
           break;
-        case 2:
+        case 2: // for CAN message coming
           switch(Rx1_DATA0)
             {
-            case 1:
+            case 1://
               SpeedDecrease = 6;
               led0pwmval -= SpeedDecrease;
-              BEEP = !BEEP;
-              //printf("blocked\n");
+              LED0 = !LED0;
+              printf("bl %d\n", Rx1_DATA4);
               break;
             case 2:
-              printf("celeration\n");
+							LED1 = !LED1;
+              printf("de %d\n", Rx1_DATA4);
               break;
             case 3:
-              printf("celeration\n");
+							LEDA1 = !LEDA1;
+              printf("ce %d\n", Rx1_DATA4);
               break;
             case 4:
-              printf("constant\n");
+							LEDA4 = !LEDA4;
+              printf("con %d\n", Rx1_DATA4);
               break;
             default:
               break;
             }
           CAN_Speedflag = 0;
           break;
-						case 3:
-							TSpeed( arrValue, pscValue, Tem_NumHigh2Freq );
+				 case 3: // for timer 4
+							tv =TSpeed(Tem_NumHigh2Freq);
+						//printf("tv:%.3f\n",tv);
 						CAN_Speedflag = 0;
 						break;
         default:
@@ -193,10 +213,10 @@ void led_task(void *pvParameters)
         }
       TIM_SetCompare2(TIM3,led0pwmval);
       //printf("hello the world'\r\n");
-      //delay_ms(500);
+      //delay_us(500);
       //lv_timer_handler();
       //LED0=!LED0;
-      vTaskDelay(1);
+      //vTaskDelay(1);
     }
 }
 

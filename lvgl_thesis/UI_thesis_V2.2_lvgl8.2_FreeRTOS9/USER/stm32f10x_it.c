@@ -25,7 +25,7 @@
 #include "stm32f10x_it.h" 
 #include "usart.h"
 uint8_t Rx1_DATA0,Rx1_DATA1,Rx1_DATA2,Rx1_DATA3,Rx1_DATA4,Rx1_DATA5,Rx1_DATA6,Rx1_DATA7;
-int CAN_Speedflag = 0;
+volatile int CAN_Speedflag = 0;
 uint16_t CANRx_ID;
 
 void CAN1_RX1_IRQHandler(void)
@@ -43,7 +43,7 @@ void CAN1_RX1_IRQHandler(void)
   CAN_ClearITPendingBit(CAN1,CAN_IT_FMP1);  /* Çå³ý¹ÒÆðÖÐ¶Ï */
   CAN_Speedflag = 2;
  //CanRxFlag = ENABLE;
- // printf("receive %#x,%d,%d,%d,%d\n", CANRx_ID,Rx1_DATA0,Rx1_DATA1,Rx1_DATA2,Rx1_DATA3);
+// printf("receive %#x,%d,%d,%d,%d\n", CANRx_ID,Rx1_DATA0,Rx1_DATA1,Rx1_DATA2,Rx1_DATA3);
 }
 
 

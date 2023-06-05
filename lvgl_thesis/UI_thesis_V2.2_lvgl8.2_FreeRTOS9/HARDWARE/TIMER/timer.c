@@ -49,15 +49,16 @@ float Mspeed(int arr, int psc)  //psc here is 7199, so it is fine
 	//printf("%.3f\n",Mv);
 }
 
-
+static int arrValue = 199;
+static int pscValue = 71;
 //#define POINT_COUNT   	10  //数据线所具有的数据点个数
 //extern lv_coord_t series1_y[POINT_COUNT] ;
-float TSpeed(int arr, int psc, int tempHighFreq )
+float TSpeed(int tempHighFreq )
 { 
 	//static int counter = 0;
 	float Tv = 0;
 	int freq = 0;
-	freq = (int)(1.0/(((arr+1)*(psc +1)) / (72.0* pow(10.0,6.0))));
+	freq = (int)(1.0/(((arrValue+1)*(pscValue +1)) / (72.0* pow(10.0,6.0))));
 	Tv = 60.0* freq * Pulse/ (TOTAL_RESOLUTION * tempHighFreq *1.0);
   //	printf("freq is %d \r\n", freq);
   //printf("NumHighFreq is %d \r\n", NumHighFreq);
@@ -65,7 +66,7 @@ float TSpeed(int arr, int psc, int tempHighFreq )
 	//series1_y[counter] = Tv;
 	//counter ++;
 	//if(counter >10) counter = 0;
-	printf("speed:%.3f\n",Tv);
+	//printf("speed:%.3f\n",Tv);
 	NumHighFreq = 0;
 	return Tv;
 	//printf("Tv is %.3f \r\n", Tv);
@@ -285,7 +286,7 @@ extern int pscValue;
 
 extern int SpeedDecrease;
 extern lv_obj_t * chart1;
-extern int CAN_Speedflag;
+extern volatile int CAN_Speedflag;
 void TIM1_UP_IRQHandler(void)   //TIM1中断 TIM1_BRK_IRQHandler  TIM1_UP_IRQHandler
 {
   if (TIM_GetITStatus(TIM1, TIM_IT_Update) != RESET)  //检查TIM1更新中断发生与否

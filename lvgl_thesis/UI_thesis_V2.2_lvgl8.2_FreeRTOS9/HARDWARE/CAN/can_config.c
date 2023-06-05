@@ -51,7 +51,7 @@ void CanInit()
   CAN_InitStructure.CAN_SJW = CAN_SJW_1tq;      /* 重新同步跳宽，只有can硬件处于初始化模式时才能访问这个寄存器 */
   CAN_InitStructure.CAN_BS1 = CAN_BS1_6tq;      /* PTS + PBS1 */
   CAN_InitStructure.CAN_BS2 = CAN_BS2_5tq;      /* PBS2 */
-  CAN_InitStructure.CAN_Prescaler = 6;         /* 波特率预分频数 */
+  CAN_InitStructure.CAN_Prescaler = 3;         /* 波特率预分频数 */
   CAN_Init(CAN1,&CAN_InitStructure);
 
 }
